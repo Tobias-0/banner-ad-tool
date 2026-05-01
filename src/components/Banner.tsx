@@ -212,10 +212,9 @@ Banner970x250.displayName = 'Banner970x250';
 
 // ── 980×90 ────────────────────────────────────────────────────────────────────
 
-export const Banner980x90 = forwardRef<HTMLDivElement, { data: BannerState; wmConfig?: WmConfig }>(({ data, wmConfig }, ref) => {
+export const Banner980x90 = forwardRef<HTMLDivElement, { data: BannerState; wmConfig?: WmConfig }>(({ data }, ref) => {
   const color = THEMES[data.theme].color;
   const iconProps = { iconSize: 17, iconVA: -2, iconMarginRight: 8, iconBR: 4 };
-  const wm = wmConfig ?? WM_DEFAULTS['980x90'];
   return (
     <div ref={ref} style={{ width: 980, height: 90, position: 'relative', background: bannerBg(color, 0.06), fontFamily: "'Suisse Intl', system-ui, sans-serif", overflow: 'hidden', flexShrink: 0 }}>
       <div style={{ position: 'relative', zIndex: 2, height: '100%', padding: '0 28px', display: 'flex', alignItems: 'center', gap: 16, boxSizing: 'border-box' }}>
