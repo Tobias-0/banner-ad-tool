@@ -69,6 +69,7 @@ export function App() {
     }
   }
 
+  const showGame    = state.format !== 'shop';
   const showCreator = state.format !== 'game';
   const showFiller3 = state.format === 'community' || state.format === 'guide';
 
@@ -121,28 +122,32 @@ export function App() {
             <input type="text" value={state.filler1} onChange={(e) => update('filler1', e.target.value)} />
           </div>
 
-          <div className="slot-controls">
-            <div className="slot-controls-header">Game</div>
-            <div className="field">
-              <label>Name</label>
-              <input type="text" value={state.gameName} onChange={(e) => update('gameName', e.target.value)} />
-            </div>
-            <div className="field">
-              <label>Image</label>
-              <div className="icon-row">
-                {state.gameIcon ? <img className="icon-preview" src={state.gameIcon} alt="" /> : <div className="icon-preview" />}
-                <label className="file-btn">
-                  Upload
-                  <input type="file" accept="image/*" onChange={(e) => onIconUpload('gameIcon', e)} />
-                </label>
-                {state.gameIcon && <button className="icon-clear" onClick={() => update('gameIcon', null)}>×</button>}
+          {showGame && (
+            <div className="slot-controls">
+              <div className="slot-controls-header">Game</div>
+              <div className="field">
+                <label>Name</label>
+                <input type="text" value={state.gameName} onChange={(e) => update('gameName', e.target.value)} />
+              </div>
+              <div className="field">
+                <label>Image</label>
+                <div className="icon-row">
+                  {state.gameIcon ? <img className="icon-preview" src={state.gameIcon} alt="" /> : <div className="icon-preview" />}
+                  <label className="file-btn">
+                    Upload
+                    <input type="file" accept="image/*" onChange={(e) => onIconUpload('gameIcon', e)} />
+                  </label>
+                  {state.gameIcon && <button className="icon-clear" onClick={() => update('gameIcon', null)}>×</button>}
+                </div>
               </div>
             </div>
-          </div>
+          )}
 
-          <div className="field">
-            <input type="text" value={state.filler2} onChange={(e) => update('filler2', e.target.value)} />
-          </div>
+          {showGame && (
+            <div className="field">
+              <input type="text" value={state.filler2} onChange={(e) => update('filler2', e.target.value)} />
+            </div>
+          )}
 
           {showCreator && (
             <div className="slot-controls">

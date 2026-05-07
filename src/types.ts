@@ -1,7 +1,7 @@
 import defaultGameIcon    from './assets/default-icon-1.jpeg';
 import defaultCreatorIcon from './assets/default-icon-2.jpeg';
 
-export type Format = 'creator' | 'game' | 'community' | 'guide';
+export type Format = 'creator' | 'game' | 'community' | 'guide' | 'shop';
 export type Theme = 'gold' | 'green' | 'purple' | 'pink';
 
 export interface BannerState {
@@ -22,6 +22,7 @@ export const FORMATS: Record<Format, { label: string; defaultTheme: Theme }> = {
   game:      { label: 'Game',      defaultTheme: 'green'  },
   community: { label: 'Community', defaultTheme: 'purple' },
   guide:     { label: 'Guide',     defaultTheme: 'pink'   },
+  shop:      { label: 'Shop',      defaultTheme: 'gold'   },
 };
 
 export const FORMAT_DEFAULTS: Record<Format, Pick<BannerState, 'filler1' | 'filler2' | 'filler3' | 'ctaText' | 'gameName' | 'creatorName'>> = {
@@ -29,6 +30,7 @@ export const FORMAT_DEFAULTS: Record<Format, Pick<BannerState, 'filler1' | 'fill
   game:      { filler1: 'Get good at', filler2: 'with 1-on-1 coaching.', filler3: '',                          ctaText: 'Find a coach',    gameName: 'Smash Ultimate', creatorName: 'Dark Wizzy'  },
   community: { filler1: 'Join',        filler2: 'exclusive',             filler3: 'Discord.',                  ctaText: 'Become a member', gameName: 'Smash Ultimate', creatorName: 'Dark Wizzy'  },
   guide:     { filler1: 'Master',      filler2: 'with',                  filler3: 'complete guide for Melee.', ctaText: 'Read the guide',  gameName: 'Pikachu',        creatorName: 'Dark Wizzy'  },
+  shop:      { filler1: 'Shop the latest products from', filler2: '',            filler3: '',                          ctaText: 'Shop now',        gameName: 'Smash Ultimate', creatorName: 'Dark Wizzy.' },
 };
 
 export const THEMES: Record<Theme, { label: string; color: string }> = {

@@ -75,6 +75,7 @@ function buildParts(
     game:      [f(filler1), game, br, f(filler2)],
     community: [f(filler1), creator, f(filler2), game, f(filler3)],
     guide:     [f(filler1), game, f(filler2), creator, f(filler3)],
+    shop:      [f(filler1), br, creator],
   }[data.format];
 
   const filtered = raw.filter(Boolean) as ReactNode[];
@@ -145,12 +146,13 @@ export const Banner300x250 = forwardRef<HTMLDivElement, { data: BannerState; wmC
   const color = THEMES[data.theme].color;
   const iconProps = { iconSize: 20, iconVA: -2, iconMarginRight: 9, iconBR: 4, slotPL: 8 };
   const wm = wmConfig ?? WM_DEFAULTS['300x250'];
+  const isShop = data.format === 'shop';
   return (
     <div ref={ref} style={{ width: 300, height: 250, position: 'relative', background: bannerBg(color), fontFamily: "'Suisse Intl', system-ui, sans-serif", overflow: 'hidden', flexShrink: 0 }}>
       <Watermark {...wm} />
       <div style={{ position: 'relative', zIndex: 2, height: '100%', padding: 24, display: 'flex', flexDirection: 'column', boxSizing: 'border-box' }}>
         <Logo height={28} style={{ alignSelf: 'flex-start' }} />
-        <div style={{ marginTop: 35, fontSize: 22, lineHeight: '33px', letterSpacing: '0.005em', color: '#C0C0D1', fontWeight: 400 }}>
+        <div style={{ marginTop: isShop ? 'auto' : 35, fontSize: 22, lineHeight: '33px', letterSpacing: '0.005em', color: '#C0C0D1', fontWeight: 400 }}>
           {buildParts(data, iconProps)}
         </div>
         <div style={{ marginTop: 16, fontSize: 16, lineHeight: '24px', fontWeight: 600, color, display: 'inline-flex', alignItems: 'center', gap: 4, alignSelf: 'flex-start' }}>
