@@ -40,10 +40,9 @@ interface SlotProps {
   iconVA: number; // vertical-align offset in px (negative = up)
   iconMarginRight: number;
   iconBR: number;
-  slotPL?: number;
 }
 
-function Slot({ icon, name, iconSize, iconVA, iconMarginRight, iconBR, slotPL = 2 }: SlotProps) {
+function Slot({ icon, name, iconSize, iconVA, iconMarginRight, iconBR }: SlotProps) {
   const spaceIdx = name.indexOf(' ');
   const first = spaceIdx === -1 ? name : name.slice(0, spaceIdx);
   const rest = spaceIdx === -1 ? '' : name.slice(spaceIdx);
@@ -144,7 +143,7 @@ const WM_DEFAULTS: Record<string, WmConfig> = {
 
 export const Banner300x250 = forwardRef<HTMLDivElement, { data: BannerState; wmConfig?: WmConfig }>(({ data, wmConfig }, ref) => {
   const color = THEMES[data.theme].color;
-  const iconProps = { iconSize: 20, iconVA: -2, iconMarginRight: 9, iconBR: 4, slotPL: 8 };
+  const iconProps = { iconSize: 20, iconVA: -2, iconMarginRight: 9, iconBR: 4 };
   const wm = wmConfig ?? WM_DEFAULTS['300x250'];
   const isShop = data.format === 'shop';
   return (
@@ -169,7 +168,7 @@ Banner300x250.displayName = 'Banner300x250';
 
 export const Banner300x600 = forwardRef<HTMLDivElement, { data: BannerState; wmConfig?: WmConfig }>(({ data, wmConfig }, ref) => {
   const color = THEMES[data.theme].color;
-  const iconProps = { iconSize: 28, iconVA: -2, iconMarginRight: 12, iconBR: 4, slotPL: 8 };
+  const iconProps = { iconSize: 28, iconVA: -2, iconMarginRight: 12, iconBR: 4 };
   const wm = wmConfig ?? WM_DEFAULTS['300x600'];
   return (
     <div ref={ref} style={{ width: 300, height: 600, position: 'relative', background: bannerBg(color), fontFamily: "'Suisse Intl', system-ui, sans-serif", overflow: 'hidden', flexShrink: 0 }}>
@@ -195,7 +194,7 @@ Banner300x600.displayName = 'Banner300x600';
 
 export const Banner970x250 = forwardRef<HTMLDivElement, { data: BannerState; wmConfig?: WmConfig }>(({ data, wmConfig }, ref) => {
   const color = THEMES[data.theme].color;
-  const iconProps = { iconSize: 28, iconVA: -2, iconMarginRight: 12, iconBR: 4, slotPL: 8 };
+  const iconProps = { iconSize: 28, iconVA: -2, iconMarginRight: 12, iconBR: 4 };
   const wm = wmConfig ?? WM_DEFAULTS['970x250'];
   return (
     <div ref={ref} style={{ width: 970, height: 250, position: 'relative', background: bannerBg(color, 0.06), fontFamily: "'Suisse Intl', system-ui, sans-serif", overflow: 'hidden', flexShrink: 0 }}>
@@ -221,7 +220,7 @@ Banner970x250.displayName = 'Banner970x250';
 
 export const Banner980x90 = forwardRef<HTMLDivElement, { data: BannerState; wmConfig?: WmConfig }>(({ data }, ref) => {
   const color = THEMES[data.theme].color;
-  const iconProps = { iconSize: 17, iconVA: -2, iconMarginRight: 8, iconBR: 4, slotPL: 8 };
+  const iconProps = { iconSize: 17, iconVA: -2, iconMarginRight: 8, iconBR: 4 };
   return (
     <div ref={ref} style={{ width: 980, height: 90, position: 'relative', background: bannerBg(color, 0.06), fontFamily: "'Suisse Intl', system-ui, sans-serif", overflow: 'hidden', flexShrink: 0 }}>
       <div style={{ position: 'relative', zIndex: 2, height: '100%', padding: '0 28px', display: 'flex', alignItems: 'center', gap: 16, boxSizing: 'border-box' }}>
