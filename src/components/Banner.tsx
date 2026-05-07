@@ -40,14 +40,15 @@ interface SlotProps {
   iconVA: number; // vertical-align offset in px (negative = up)
   iconMarginRight: number;
   iconBR: number;
+  slotPL?: number;
 }
 
-function Slot({ icon, name, iconSize, iconVA, iconMarginRight, iconBR }: SlotProps) {
+function Slot({ icon, name, iconSize, iconVA, iconMarginRight, iconBR, slotPL = 2 }: SlotProps) {
   const spaceIdx = name.indexOf(' ');
   const first = spaceIdx === -1 ? name : name.slice(0, spaceIdx);
   const rest = spaceIdx === -1 ? '' : name.slice(spaceIdx);
   return (
-    <span style={{ display: 'inline', paddingLeft: 4 }}>
+    <span style={{ display: 'inline', wordSpacing: 'normal' }}>
       <span style={{ whiteSpace: 'nowrap' }}>
         <span style={{ display: 'inline-block', verticalAlign: iconVA, marginRight: iconMarginRight }}>
           <SlotIcon icon={icon} size={iconSize} borderRadius={iconBR} />
@@ -60,23 +61,27 @@ function Slot({ icon, name, iconSize, iconVA, iconMarginRight, iconBR }: SlotPro
 function buildParts(
   data: BannerState,
   iconProps: Omit<SlotProps, 'icon' | 'name'>,
+  insertBreaks = false,
+  fillerPR = 2,
 ): ReactNode[] {
   const { filler1, filler2, filler3, gameName, gameIcon, creatorName, creatorIcon } = data;
-  const f = (t: string) => t ? <span key={t} style={{ color: '#C0C0D1', fontWeight: 400 }}>{t}</span> : null;
+  const f = (t: string) => t ? <span key={t} style={{ color: '#C0C0D1', fontWeight: 400, wordSpacing: 'normal', paddingRight: fillerPR }}>{t}</span> : null;
   const game = <Slot key="game" icon={gameIcon} name={gameName} {...iconProps} />;
   const creator = <Slot key="creator" icon={creatorIcon} name={creatorName} {...iconProps} />;
+  const br = insertBreaks ? <br key="br" /> : null;
 
   const raw: (ReactNode | null)[] = {
     creator:   [f(filler1), game, f(filler2), creator],
-    game:      [f(filler1), game, f(filler2)],
+    game:      [f(filler1), game, br, f(filler2)],
     community: [f(filler1), creator, f(filler2), game, f(filler3)],
     guide:     [f(filler1), game, f(filler2), creator, f(filler3)],
   }[data.format];
 
   const filtered = raw.filter(Boolean) as ReactNode[];
-  return filtered.map((part, i) => (
-    <Fragment key={i}>{i > 0 && ' '}{part}</Fragment>
-  ));
+  return filtered.map((part, i) => {
+    const isBreak = (part as any)?.type === 'br';
+    return <Fragment key={i}>{i > 0 && !isBreak && ' '}{part}</Fragment>;
+  });
 }
 
 // ── Watermark ────────────────────────────────────────────────────────────────
@@ -138,7 +143,7 @@ const WM_DEFAULTS: Record<string, WmConfig> = {
 
 export const Banner300x250 = forwardRef<HTMLDivElement, { data: BannerState; wmConfig?: WmConfig }>(({ data, wmConfig }, ref) => {
   const color = THEMES[data.theme].color;
-  const iconProps = { iconSize: 20, iconVA: -2, iconMarginRight: 9, iconBR: 4 };
+  const iconProps = { iconSize: 20, iconVA: -2, iconMarginRight: 9, iconBR: 4, slotPL: 8 };
   const wm = wmConfig ?? WM_DEFAULTS['300x250'];
   return (
     <div ref={ref} style={{ width: 300, height: 250, position: 'relative', background: bannerBg(color), fontFamily: "'Suisse Intl', system-ui, sans-serif", overflow: 'hidden', flexShrink: 0 }}>
@@ -162,7 +167,7 @@ Banner300x250.displayName = 'Banner300x250';
 
 export const Banner300x600 = forwardRef<HTMLDivElement, { data: BannerState; wmConfig?: WmConfig }>(({ data, wmConfig }, ref) => {
   const color = THEMES[data.theme].color;
-  const iconProps = { iconSize: 28, iconVA: -2, iconMarginRight: 12, iconBR: 4 };
+  const iconProps = { iconSize: 28, iconVA: -2, iconMarginRight: 12, iconBR: 4, slotPL: 8 };
   const wm = wmConfig ?? WM_DEFAULTS['300x600'];
   return (
     <div ref={ref} style={{ width: 300, height: 600, position: 'relative', background: bannerBg(color), fontFamily: "'Suisse Intl', system-ui, sans-serif", overflow: 'hidden', flexShrink: 0 }}>
@@ -188,7 +193,7 @@ Banner300x600.displayName = 'Banner300x600';
 
 export const Banner970x250 = forwardRef<HTMLDivElement, { data: BannerState; wmConfig?: WmConfig }>(({ data, wmConfig }, ref) => {
   const color = THEMES[data.theme].color;
-  const iconProps = { iconSize: 28, iconVA: -2, iconMarginRight: 12, iconBR: 4 };
+  const iconProps = { iconSize: 28, iconVA: -2, iconMarginRight: 12, iconBR: 4, slotPL: 8 };
   const wm = wmConfig ?? WM_DEFAULTS['970x250'];
   return (
     <div ref={ref} style={{ width: 970, height: 250, position: 'relative', background: bannerBg(color, 0.06), fontFamily: "'Suisse Intl', system-ui, sans-serif", overflow: 'hidden', flexShrink: 0 }}>
@@ -197,7 +202,7 @@ export const Banner970x250 = forwardRef<HTMLDivElement, { data: BannerState; wmC
         <Logo height={34} style={{ alignSelf: 'flex-start' }} />
         <div style={{ marginTop: 'auto', display: 'flex', flexDirection: 'row', alignItems: 'flex-end', justifyContent: 'space-between', gap: 24 }}>
           <div style={{ fontSize: 36, lineHeight: '48px', letterSpacing: '-0.005em', color: '#C0C0D1', fontWeight: 400, maxWidth: 560 }}>
-            {buildParts(data, iconProps)}
+            {buildParts(data, iconProps, false, 6)}
           </div>
           <div style={{ flexShrink: 0, fontSize: 18, lineHeight: '24px', fontWeight: 600, color, display: 'inline-flex', alignItems: 'center', gap: 5, paddingBottom: 6 }}>
             <span>{data.ctaText}</span>
@@ -214,14 +219,14 @@ Banner970x250.displayName = 'Banner970x250';
 
 export const Banner980x90 = forwardRef<HTMLDivElement, { data: BannerState; wmConfig?: WmConfig }>(({ data }, ref) => {
   const color = THEMES[data.theme].color;
-  const iconProps = { iconSize: 17, iconVA: -2, iconMarginRight: 8, iconBR: 4 };
+  const iconProps = { iconSize: 17, iconVA: -2, iconMarginRight: 8, iconBR: 4, slotPL: 8 };
   return (
     <div ref={ref} style={{ width: 980, height: 90, position: 'relative', background: bannerBg(color, 0.06), fontFamily: "'Suisse Intl', system-ui, sans-serif", overflow: 'hidden', flexShrink: 0 }}>
       <div style={{ position: 'relative', zIndex: 2, height: '100%', padding: '0 28px', display: 'flex', alignItems: 'center', gap: 16, boxSizing: 'border-box' }}>
         <Logo height={30} />
         <div style={{ width: 1, height: 24, background: 'rgba(255,255,255,0.1)', flexShrink: 0 }} />
         <div style={{ flex: 1, fontSize: 18, lineHeight: '25px', letterSpacing: '0.003em', color: '#C0C0D1', fontWeight: 400, overflow: 'hidden', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical' }}>
-          {buildParts(data, iconProps)}
+          {buildParts(data, iconProps, false, 4)}
         </div>
         <div style={{ flexShrink: 0, fontSize: 18, lineHeight: '22px', fontWeight: 600, color, display: 'inline-flex', alignItems: 'center', gap: 4 }}>
           <span>{data.ctaText}</span>
@@ -232,6 +237,25 @@ export const Banner980x90 = forwardRef<HTMLDivElement, { data: BannerState; wmCo
   );
 });
 Banner980x90.displayName = 'Banner980x90';
+
+// ── 320×50 ────────────────────────────────────────────────────────────────────
+
+export const Banner320x50 = forwardRef<HTMLDivElement, { data: BannerState; logoSize?: number }>(({ data, logoSize = 18 }, ref) => {
+  const color = THEMES[data.theme].color;
+  const iconProps = { iconSize: 12, iconVA: -2, iconMarginRight: 5, iconBR: 3 };
+  return (
+    <div ref={ref} style={{ width: 320, height: 50, position: 'relative', background: bannerBg(color, 0.06), fontFamily: "'Suisse Intl', system-ui, sans-serif", overflow: 'hidden', flexShrink: 0 }}>
+      <div style={{ position: 'relative', zIndex: 2, height: '100%', padding: '0 14px', display: 'flex', alignItems: 'center', boxSizing: 'border-box' }}>
+        <Logo height={logoSize} style={{ marginRight: 8 }} />
+        <div style={{ width: 1, height: 14, background: 'rgba(255,255,255,0.1)', flexShrink: 0, marginRight: 12 }} />
+        <div style={{ flex: 1, fontSize: 11, lineHeight: '14px', letterSpacing: '0.003em', color: '#C0C0D1', fontWeight: 400, overflow: 'hidden', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', wordSpacing: 2 }}>
+          {buildParts(data, iconProps, true, 0)}
+        </div>
+      </div>
+    </div>
+  );
+});
+Banner320x50.displayName = 'Banner320x50';
 
 // ── Generic wrapper (used by App for export refs) ─────────────────────────────
 

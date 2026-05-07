@@ -1,6 +1,6 @@
 import { useRef, useState, type ChangeEvent } from 'react';
 import { toPng } from 'html-to-image';
-import { Banner300x250, Banner300x600, Banner970x250, Banner980x90 } from './components/Banner';
+import { Banner300x250, Banner300x600, Banner970x250, Banner980x90, Banner320x50 } from './components/Banner';
 import {
   FORMAT_DEFAULTS,
   FORMATS,
@@ -19,6 +19,7 @@ export function App() {
   const ref600  = useRef<HTMLDivElement>(null);
   const ref970  = useRef<HTMLDivElement>(null);
   const ref980  = useRef<HTMLDivElement>(null);
+  const ref320  = useRef<HTMLDivElement>(null);
 
   function update<K extends keyof BannerState>(key: K, value: BannerState[K]) {
     setState((s) => ({ ...s, [key]: value }));
@@ -47,7 +48,8 @@ export function App() {
       { ref: ref250, label: '300x250' },
       { ref: ref600, label: '300x600' },
       { ref: ref970, label: '970x250' },
-      { ref: ref980, label: '980x90' },
+      { ref: ref980, label: '980x90'  },
+      { ref: ref320, label: '320x50'  },
     ];
     setExporting(true);
     try {
@@ -126,7 +128,7 @@ export function App() {
               <input type="text" value={state.gameName} onChange={(e) => update('gameName', e.target.value)} />
             </div>
             <div className="field">
-              <label>Icon</label>
+              <label>Image</label>
               <div className="icon-row">
                 {state.gameIcon ? <img className="icon-preview" src={state.gameIcon} alt="" /> : <div className="icon-preview" />}
                 <label className="file-btn">
@@ -150,7 +152,7 @@ export function App() {
                 <input type="text" value={state.creatorName} onChange={(e) => update('creatorName', e.target.value)} />
               </div>
               <div className="field">
-                <label>Icon</label>
+                <label>Image</label>
                 <div className="icon-row">
                   {state.creatorIcon ? <img className="icon-preview" src={state.creatorIcon} alt="" /> : <div className="icon-preview" />}
                   <label className="file-btn">
@@ -185,18 +187,21 @@ export function App() {
       <main className="canvas-area">
         <div className="banner-group">
           <div className="banner-row">
-            <BannerBlock label="300 × 250" width={300}>
+            <BannerBlock label="1 — 300 × 250" width={300}>
               <Banner300x250 ref={ref250} data={state} />
             </BannerBlock>
-            <BannerBlock label="300 × 600" width={300}>
+            <BannerBlock label="2 — 300 × 600" width={300}>
               <Banner300x600 ref={ref600} data={state} />
             </BannerBlock>
           </div>
-          <BannerBlock label="970 × 250" width={970}>
+          <BannerBlock label="3 — 970 × 250" width={970}>
             <Banner970x250 ref={ref970} data={state} />
           </BannerBlock>
-          <BannerBlock label="980 × 90" width={980}>
+          <BannerBlock label="4 — 980 × 90" width={980}>
             <Banner980x90 ref={ref980} data={state} />
+          </BannerBlock>
+          <BannerBlock label="5 — 320 × 50" width={320}>
+            <Banner320x50 ref={ref320} data={state} logoSize={21} />
           </BannerBlock>
         </div>
       </main>

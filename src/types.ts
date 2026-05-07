@@ -1,3 +1,6 @@
+import defaultGameIcon    from './assets/default-icon-1.jpeg';
+import defaultCreatorIcon from './assets/default-icon-2.jpeg';
+
 export type Format = 'creator' | 'game' | 'community' | 'guide';
 export type Theme = 'gold' | 'green' | 'purple' | 'pink';
 
@@ -39,6 +42,6 @@ export const INITIAL_STATE: BannerState = {
   format: 'creator',
   theme: 'gold',
   ...FORMAT_DEFAULTS.creator,
-  gameIcon: null,
-  creatorIcon: null,
+  gameIcon: defaultGameIcon,
+  creatorIcon: defaultCreatorIcon,
 };
