@@ -147,7 +147,7 @@ export const Banner300x250 = forwardRef<HTMLDivElement, { data: BannerState; wmC
   const wm = wmConfig ?? WM_DEFAULTS['300x250'];
   const isShop = data.format === 'shop';
   return (
-    <div ref={ref} style={{ width: 300, height: 250, position: 'relative', background: bannerBg(color), fontFamily: "'Suisse Intl', system-ui, sans-serif", overflow: 'hidden', flexShrink: 0 }}>
+    <div ref={ref} style={{ width: 300, height: 250, position: 'relative', background: bannerBg(color), fontFamily: "Inter, system-ui, sans-serif", overflow: 'hidden', flexShrink: 0 }}>
       <Watermark {...wm} />
       <div style={{ position: 'relative', zIndex: 2, height: '100%', padding: 24, display: 'flex', flexDirection: 'column', boxSizing: 'border-box' }}>
         <Logo height={28} style={{ alignSelf: 'flex-start' }} />
@@ -171,7 +171,7 @@ export const Banner300x600 = forwardRef<HTMLDivElement, { data: BannerState; wmC
   const iconProps = { iconSize: 28, iconVA: -2, iconMarginRight: 12, iconBR: 4 };
   const wm = wmConfig ?? WM_DEFAULTS['300x600'];
   return (
-    <div ref={ref} style={{ width: 300, height: 600, position: 'relative', background: bannerBg(color), fontFamily: "'Suisse Intl', system-ui, sans-serif", overflow: 'hidden', flexShrink: 0 }}>
+    <div ref={ref} style={{ width: 300, height: 600, position: 'relative', background: bannerBg(color), fontFamily: "Inter, system-ui, sans-serif", overflow: 'hidden', flexShrink: 0 }}>
       <Watermark {...wm} />
       <div style={{ position: 'relative', zIndex: 2, height: '100%', padding: 28, display: 'flex', flexDirection: 'column', boxSizing: 'border-box' }}>
         <Logo height={34} style={{ alignSelf: 'flex-start' }} />
@@ -197,7 +197,7 @@ export const Banner970x250 = forwardRef<HTMLDivElement, { data: BannerState; wmC
   const iconProps = { iconSize: 28, iconVA: -2, iconMarginRight: 12, iconBR: 4 };
   const wm = wmConfig ?? WM_DEFAULTS['970x250'];
   return (
-    <div ref={ref} style={{ width: 970, height: 250, position: 'relative', background: bannerBg(color, 0.06), fontFamily: "'Suisse Intl', system-ui, sans-serif", overflow: 'hidden', flexShrink: 0 }}>
+    <div ref={ref} style={{ width: 970, height: 250, position: 'relative', background: bannerBg(color, 0.06), fontFamily: "Inter, system-ui, sans-serif", overflow: 'hidden', flexShrink: 0 }}>
       <Watermark {...wm} />
       <div style={{ position: 'relative', zIndex: 2, height: '100%', padding: '32px 32px 24px', display: 'flex', flexDirection: 'column', boxSizing: 'border-box' }}>
         <Logo height={34} style={{ alignSelf: 'flex-start' }} />
@@ -222,7 +222,7 @@ export const Banner980x90 = forwardRef<HTMLDivElement, { data: BannerState; wmCo
   const color = THEMES[data.theme].color;
   const iconProps = { iconSize: 17, iconVA: -2, iconMarginRight: 8, iconBR: 4 };
   return (
-    <div ref={ref} style={{ width: 980, height: 90, position: 'relative', background: bannerBg(color, 0.06), fontFamily: "'Suisse Intl', system-ui, sans-serif", overflow: 'hidden', flexShrink: 0 }}>
+    <div ref={ref} style={{ width: 980, height: 90, position: 'relative', background: bannerBg(color, 0.06), fontFamily: "Inter, system-ui, sans-serif", overflow: 'hidden', flexShrink: 0 }}>
       <div style={{ position: 'relative', zIndex: 2, height: '100%', padding: '0 28px', display: 'flex', alignItems: 'center', gap: 16, boxSizing: 'border-box' }}>
         <Logo height={30} />
         <div style={{ width: 1, height: 24, background: 'rgba(255,255,255,0.1)', flexShrink: 0 }} />
@@ -245,7 +245,7 @@ export const Banner320x50 = forwardRef<HTMLDivElement, { data: BannerState; logo
   const color = THEMES[data.theme].color;
   const iconProps = { iconSize: 12, iconVA: -2, iconMarginRight: 5, iconBR: 3 };
   return (
-    <div ref={ref} style={{ width: 320, height: 50, position: 'relative', background: bannerBg(color, 0.06), fontFamily: "'Suisse Intl', system-ui, sans-serif", overflow: 'hidden', flexShrink: 0 }}>
+    <div ref={ref} style={{ width: 320, height: 50, position: 'relative', background: bannerBg(color, 0.06), fontFamily: "Inter, system-ui, sans-serif", overflow: 'hidden', flexShrink: 0 }}>
       <div style={{ position: 'relative', zIndex: 2, height: '100%', padding: '0 14px', display: 'flex', alignItems: 'center', boxSizing: 'border-box' }}>
         <Logo height={logoSize} style={{ marginRight: 8 }} />
         <div style={{ width: 1, height: 14, background: 'rgba(255,255,255,0.1)', flexShrink: 0, marginRight: 12 }} />
